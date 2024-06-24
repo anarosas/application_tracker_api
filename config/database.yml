@@ -16,7 +16,12 @@ default: &default
   adapter: postgresql
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
-  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  # http://guides.rubyonrails.org/configuring.html#database-pooling
+  database: <%= ENV.fetch("POSTGRES_DB") { "hello" } %>
+  username: <%= ENV.fetch("POSTGRES_USER") { "hello" } %>
+  password: <%= ENV.fetch("POSTGRES_PASSWORD") { "password" } %>
+  host: <%= ENV.fetch("POSTGRES_HOST") { "db" } %>
+  port: <%= ENV.fetch("POSTGRES_PORT") { 5432 } %>
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
@@ -27,7 +32,7 @@ development:
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: application_tracker_api
+  #username: application_tracker
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -80,5 +85,5 @@ test:
 production:
   <<: *default
   database: application_tracker_api_production
-  username: application_tracker_api
-  password: <%= ENV["APPLICATION_TRACKER_API_DATABASE_PASSWORD"] %>
+  username: application_tracker
+  password: <%= ENV["APPLICATION_TRACKER_DATABASE_PASSWORD"] %>
